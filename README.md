@@ -22,7 +22,7 @@
 
 ## 🎂 查看贺卡
 
-[新未名树洞，生日快乐！](https://fia719.github.io/pkuhollow-1st-birthday)
+[新未名树洞，生日快乐！](https://pkuhollow-1st-birthday.vercel.app/)
 
 
 *“致未名之所以为未名，是因为真实的声音不需要被定义。”*
