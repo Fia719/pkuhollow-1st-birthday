@@ -20,18 +20,13 @@
 - **Tailwind CSS**：用于构建响应式布局。
 - **单文件架构**：无外部图片依赖，轻量化部署，支持所有现代浏览器。
 
-## 🚀 部署与访问 (Deployment)
+## 🎂 查看贺卡
 
-本项目已通过 **GitHub Pages** 自动部署。
+[新未名树洞，生日快乐！](https://fia719.github.io/pkuhollow-1st-birthday)
 
-**在线预览**：[新未名树洞，生日快乐！](https://fia719.github.io/pkuhollow-1st-birthday)
-
-
-## 📝 作者
-
-**[“A Hollow Observer”](https://github.com/fia719)**
 
 *“致未名之所以为未名，是因为真实的声音不需要被定义。”*
 
 ---
 如果你喜欢这个小项目，欢迎点击右上角的 ⭐ **Star**，为它亮起一颗星星！
+如果你对未名树洞备份或树洞观察项目感兴趣，请移步我的另一个仓库~
