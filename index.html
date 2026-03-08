@@ -38,7 +38,7 @@
       left: 25px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.8rem;
-      color: rgba(255, 255, 255, 0.4); 
+      color: rgba(255, 255, 255, 0.6); 
       z-index: 5;
       pointer-events: none;
       letter-spacing: 2px;
@@ -65,7 +65,7 @@
       text-align: center;
       padding: 20px;
       pointer-events: none; /* 让点击事件穿透到下层的星空画布 */
-      transform: scale(0.9); 
+      transform: scale(0.8); 
     }
 
     /* 恢复内部元素的点击响应 */
@@ -164,9 +164,12 @@
       right: 25px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.8rem;
-      color: rgba(255, 255, 255, 0.3);
+      color: rgba(255, 255, 255, 0.2);
       z-index: 5;
-      pointer-events: none;
+      /* 【关键修改】允许鼠标点击 */
+      pointer-events: auto; 
+      /* 【新增】去掉超链接默认的下划线 */
+      text-decoration: none; 
       transition: color 0.3s ease;
     }
     .watermark:hover {
@@ -515,6 +518,10 @@
   <div class="watermark">
     By @whatsinpkuhollow
   </div>
+
+  <a href="https://github.com/Fia719/pkuhollow-1st-birthday" target="_blank" class="watermark">
+    @whatsinpkuhollow
+  </a>
 
 </body>
 </html>
