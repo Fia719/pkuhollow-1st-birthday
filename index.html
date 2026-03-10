@@ -6,14 +6,13 @@
   <title>Happy 1st Birthday, pkuhollow!</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌳</text></svg>">
   <script src="https://cdn.tailwindcss.com"></script>
+  
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100&display=swap'); 
 
     body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
+      margin: 0; padding: 0; height: 100%;
       background: radial-gradient(circle at center, #152243 0%, #0b132b 70%);
       overflow: hidden;
       font-family: 'Noto Serif SC', serif;
@@ -21,33 +20,17 @@
     }
 
     /* 星空背景画布 */
-    #star-canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      cursor: crosshair; /* 十字光标，可点击 */
-    }
+    #star-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; cursor: crosshair; }
 
     /* 北大地理坐标水印 */
     .pku-coordinates {
-      position: absolute;
-      bottom: 25px;
-      left: 25px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-      color: rgba(255, 255, 255, 0.6); 
-      z-index: 5;
-      pointer-events: none;
-      letter-spacing: 2px;
+      position: absolute; bottom: 25px; left: 25px;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.8); 
+      z-index: 5; letter-spacing: 2px;
       animation: pulse-glow 4s infinite alternate;
-      text-align: left;
-      cursor: pointer;
-      pointer-events: auto;
+      text-align: left; cursor: pointer; pointer-events: auto;
     }
-
     @keyframes pulse-glow {
       0% { opacity: 0.1; }
       100% { opacity: 0.3; text-shadow: 0 0 5px rgba(255,255,255,0.2); }
@@ -55,465 +38,247 @@
 
     /* 贺卡主容器 */
     .card-container {
-      position: relative;
-      z-index: 10;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      text-align: center;
-      padding: 20px;
-      pointer-events: none; /* 让点击事件穿透到下层的星空画布 */
-      transform: scale(0.8); 
+      position: relative; z-index: 10; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; height: 100%;
+      text-align: center; padding: 20px; pointer-events: none; transform: scale(0.8); 
     }
-
-    /* 恢复内部元素的点击响应 */
-    .card-container > * {
-      pointer-events: auto;
-    }
+    .card-container > * { pointer-events: auto; }
 
     /* 底部星星交互提示 */
     .star-hint {
-      position: absolute;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.9rem;
-      color: rgba(255, 255, 255, 0.6);
-      letter-spacing: 2px;
-      z-index: 10;
-      pointer-events: none;
-      opacity: 0;
-      /* 延迟2秒出现，然后无限呼吸闪烁 */
+      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+      font-size: 0.9rem; color: rgba(255, 255, 255, 0.6); letter-spacing: 2px;
+      z-index: 10; pointer-events: none; opacity: 0;
       animation: fadeInHint 2s forwards 2s, pulse-hint 3s infinite alternate 4s;
     }
-
-    @keyframes fadeInHint {
-      to { opacity: 1; }
-    }
-
+    @keyframes fadeInHint { to { opacity: 1; } }
     @keyframes pulse-hint {
       0% { opacity: 0.4; text-shadow: 0 0 0px rgba(255,255,255,0); }
       100% { opacity: 1; text-shadow: 0 0 10px rgba(255,255,255,0.8); }
     }
 
-
-    /* 西瓜悬浮动画 */
+    /* 西瓜动画 */
     .floating-watermelon {
-      width: 180px;
-      height: 180px;
-      animation: float 4s ease-in-out infinite;
-      filter: drop-shadow(0 0 25px rgba(255, 59, 91, 0.4));
-      cursor: pointer;
+      width: 180px; height: 180px; animation: float 4s ease-in-out infinite;
+      filter: drop-shadow(0 0 25px rgba(255, 59, 91, 0.4)); cursor: pointer;
       transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-
     .floating-watermelon:hover { transform: scale(1.05) rotate(2deg); }
     .floating-watermelon:active { transform: scale(0.9) rotate(-10deg); }
-
     @keyframes float {
       0% { transform: translateY(0px) rotate(0deg); }
       50% { transform: translateY(-15px) rotate(3deg); }
       100% { transform: translateY(0px) rotate(0deg); }
     }
 
-    /* 渐现动画 */
-    .fade-in-up {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 1s forwards;
-    }
-
-    .delay-1 { animation-delay: 0.5s; }
-    .delay-2 { animation-delay: 1.2s; }
-
-    @keyframes fadeInUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* 文字发光效果 */
+    /* 渐现与发光 */
+    .fade-in-up { opacity: 0; transform: translateY(20px); animation: fadeInUp 1s forwards; }
+    .delay-1 { animation-delay: 0.5s; } .delay-2 { animation-delay: 1.2s; }
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
     .glow-text { text-shadow: 0 0 15px rgba(255, 255, 255, 0.4); }
-    .highlight-red { color: #ff3b5b; }
-    .highlight-green { color: #7bca51; }
+    .highlight-red { color: #ff3b5b; } .highlight-green { color: #7bca51; }
 
-    /* 交互出现的心声 */
+    /* 寄语 */
     #secret-message {
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 1.5s, transform 1s;
-      transform: translateY(10px);
-      margin-top: 35px;
-      padding: 20px 30px;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 12px;
-      background: rgba(255,255,255,0.03);
-      backdrop-filter: blur(8px);
-      position: relative;
+      opacity: 0; visibility: hidden; transition: opacity 1.5s, transform 1s; transform: translateY(10px);
+      margin-top: 35px; padding: 20px 30px; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+      background: rgba(255,255,255,0.03); backdrop-filter: blur(8px); position: relative;
     }
-    #secret-message.show {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
+    #secret-message.show { opacity: 1; visibility: visible; transform: translateY(0); }
+
+    /* 右下角水印 */
+    .watermark {
+      position: absolute; bottom: 25px; right: 25px; font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem; color: rgba(255, 255, 255, 0.3); z-index: 5; pointer-events: auto; 
+      text-decoration: none; transition: color 0.3s ease;
+    }
+    .watermark:hover { color: rgba(255, 255, 255, 0.8); }
+
+    /* 信号终端 */
+    #signal-terminal {
+      position: absolute; bottom: 75px; left: 25px; width: 320px;
+      background: rgba(11, 19, 43, 0.6); border: 1px solid rgba(123, 202, 81, 0.3); border-radius: 8px;
+      padding: 12px 18px; font-family: 'JetBrains Mono', monospace; z-index: 20;
+      backdrop-filter: blur(4px); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      opacity: 0; visibility: hidden; transform: translateY(15px); transition: all 0.8s ease;
+    }
+    #signal-terminal.show { opacity: 1; visibility: visible; transform: translateY(0); }
+    .terminal-header {
+      font-size: 0.7rem; color: rgba(255, 255, 255, 0.4); margin-bottom: 8px; border-bottom: 1px dashed rgba(255,255,255,0.1);
+      padding-bottom: 4px; display: flex; justify-content: space-between;
+    }
+    /* 终端打字机发光绿字 */
+    .terminal-text {
+      font-size: 0.85rem; color: #7bca51; text-shadow: 0 0 8px rgba(123, 202, 81, 0.4);
+      min-height: 2.5em; line-height: 1.4;
+    }
+    
+    /* 【新增】精准控制打字内容的换行与断字 */
+    #typed-content {
+      white-space: pre-wrap; /* 支持 \n 换行 */
+      word-break: break-all; /* 强制超长网址或英文断开换行，防止撑爆黑框 */
+    }
+    .terminal-cursor {
+      display: inline-block; width: 8px; height: 14px; background-color: #7bca51;
+      vertical-align: middle; margin-left: 4px; animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* 水波纹与流星 */
+    .click-ripple {
+      position: absolute; border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, 0.6);
+      transform: translate(-50%, -50%); animation: ripple-animate 0.6s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+      pointer-events: none; z-index: 9999;
+    }
+    @keyframes ripple-animate { 0% { width: 0px; height: 0px; opacity: 1; } 100% { width: 80px; height: 80px; opacity: 0; } }
+    
+    .shooting-star {
+      position: absolute; width: 2px; height: 2px; background: #fff; border-radius: 50%;
+      box-shadow: 0 0 5px 1px rgba(255, 255, 255, 0.8); opacity: 0; z-index: 1; pointer-events: none;
+      animation: shooting 1.5s ease-in-out forwards;
+    }
+    .shooting-star::after {
+      content: ''; position: absolute; top: 50%; transform: translateY(-50%);
+      width: 60px; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,0.8), transparent);
+    }
+    @keyframes shooting { 0% { transform: translate(0, 0) rotate(-45deg); opacity: 1; } 100% { transform: translate(-300px, 300px) rotate(-45deg); opacity: 0; } }
+
+
+  /* 观察者之眼 -- 新增 */
+    .observer-eye {
+      position: absolute; top: 25px; right: 25px; font-size: 1.5rem;
+      opacity: 0.4; cursor: pointer; z-index: 50; transition: all 0.3s ease;
+    }
+    .observer-eye:hover { opacity: 1; transform: scale(1.2); text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(11, 19, 43, 0.85); backdrop-filter: blur(5px);
+      z-index: 100; display: flex; align-items: center; justify-content: center;
+      opacity: 0; visibility: hidden; transition: all 0.3s ease; text-align: left;
+    }
+    .modal-overlay.active { opacity: 1; visibility: visible; }
+    
+    .modal-content {
+      background: rgba(20, 30, 60, 0.9); border: 1px solid rgba(123, 202, 81, 0.4);
+      border-radius: 8px; padding: 30px; max-width: 400px; width: 90%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5); transform: translateY(20px);
+      transition: all 0.3s ease; font-family: 'JetBrains Mono', 'Noto Serif SC', sans-serif;
+    }
+    .modal-overlay.active .modal-content { transform: translateY(0); }
+
+
+  /* 音乐图标 */
+    .music-icon {
+      position: absolute; top: 25px; left: 25px; font-size: 1.5rem;
+      opacity: 0.4; cursor: pointer; z-index: 50; transition: all 0.3s ease;
+    }
+    .music-icon:hover { opacity: 1; transform: scale(1.2); text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+    .music-icon.playing {
+      opacity: 0.9;
+      animation: music-spin 4s linear infinite;
+    }
+    @keyframes music-spin {
+      100% { transform: rotate(360deg); }
     }
 
-    /* 右下角专属水印 */
-    .watermark {
-      position: absolute;
-      bottom: 25px;
-      right: 25px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-      color: rgba(255, 255, 255, 0.2);
-      z-index: 5;
-      /* 【关键修改】允许鼠标点击 */
-      pointer-events: auto; 
-      /* 【新增】去掉超链接默认的下划线 */
-      text-decoration: none; 
-      transition: color 0.3s ease;
-    }
-    .watermark:hover {
-      color: rgba(255, 255, 255, 0.8);
-    }
   </style>
 </head>
 <body>
 
+  <audio id="bg-music">
+    <source id="music-source" src="" type="audio/mpeg">
+  </audio>
+  <div id="music-toggle" class="music-icon" onclick="toggleMusic()" title="开启电台">🎵</div>
+
   <canvas id="star-canvas"></canvas>
 
-  
+  <div class="observer-eye" onclick="openObserverModal()">👁️</div>
 
-  <div class="pku-coordinates" id="pku-coord" style="cursor: pointer; pointer-events: auto;" onclick="triggerCoord()">
+  <div id="observer-modal" class="modal-overlay">
+    <div class="modal-content">
+      
+      <div id="modal-step-1" class="text-center">
+        <h3 class="text-xl mb-4 text-gray-200 font-bold tracking-widest">[ OBSERVER_LOG ]</h3>
+        <p class="text-gray-400 mb-6 text-sm leading-relaxed">
+          滴！检测到洞友。<br>是否确认开启过去一年间 Hollow Observer 的《新未名树洞观察》档案抽屉？
+        </p>
+        <div class="flex justify-center gap-4">
+          <button onclick="closeObserverModal()" class="px-4 py-2 border border-gray-600 rounded text-gray-400 hover:bg-gray-800 transition text-sm">我再想想</button>
+          <button onclick="showObserverLinks()" class="px-4 py-2 bg-green-900 border border-green-500 rounded text-green-400 hover:bg-green-800 hover:text-white transition shadow-[0_0_10px_rgba(123,202,81,0.3)] text-sm">拉开抽屉</button>
+        </div>
+      </div>
+
+      <div id="modal-step-2" class="hidden">
+        <h3 class="text-lg mb-4 text-green-400 border-b border-green-800 pb-2 flex justify-between">
+          <span>▶ OBSERVER_ARCHIVES</span>
+          <span class="cursor-pointer text-gray-500 hover:text-white" onclick="closeObserverModal()">✕</span>
+        </h3>
+        <p class="text-xs text-gray-500 mb-4">「 那些没有被圈养的喜怒哀乐，都在这里了。」</p>
+        
+        <ul class="space-y-3 text-sm text-gray-300">
+          <li><a href="https://web.pkuhollow.com/##3407" target="_blank" class="hover:text-green-400 transition">📄 Vol.1: 树洞观察第一期</a></li>
+          <li><a href="https://web.pkuhollow.com/##3434" target="_blank" class="hover:text-green-400 transition">📄 Vol.2: 树洞观察第二期</a></li>
+          <li><a href="https://web.pkuhollow.com/##3556" target="_blank" class="hover:text-green-400 transition">📄 Vol.3: 树洞观察第三期</a></li>
+          <li><a href="https://web.pkuhollow.com/##3647" target="_blank" class="hover:text-green-400 transition">📄 Vol.4: 树洞观察第四期</a></li>
+          <li><a href="https://web.pkuhollow.com/##3947" target="_blank" class="hover:text-green-400 transition">📄 Vol.5: 树洞观察第五期</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="pku-coordinates" id="pku-coord" onclick="triggerCoord()">
     LOC: 39°59'23.0"N 116°18'19.0"E<br>
     STATUS: NOMADIC
   </div>
 
-  <div class="star-hint">
-    尝试点击背景里的星星，看看会遇见谁？✨
-  </div>
+  <div class="star-hint">尝试点击背景里的星星，看看会遇见谁？✨</div>
 
   <div class="card-container">
-    
-    <!-- 树洞西瓜 SVG -->
     <div class="fade-in-up" onclick="revealSecret()">
       <svg class="floating-watermelon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <!-- 西瓜红瓤 -->
         <path d="M 100 20 L 20 140 Q 100 180 180 140 Z" fill="#ff445a" />
-        <!-- 右半边阴影 -->
         <path d="M 100 20 L 180 140 Q 140 160 100 160 Z" fill="#e81e4d" />
-        
-        <!-- 西瓜绿皮 -->
         <path d="M 20 140 Q 100 180 180 140 L 190 155 Q 100 200 10 155 Z" fill="#75c25e" />
-        <!-- 右半边绿皮阴影 -->
         <path d="M 100 160 Q 140 160 180 140 L 190 155 Q 140 180 100 180 Z" fill="#4ea044" />
-
-        <!-- 蓝黑色的籽 -->
         <g fill="#1a4773">
-          <!-- 上排 -->
-          <rect x="75" y="70" width="10" height="18" rx="5" />
-          <rect x="115" y="70" width="10" height="18" rx="5" />
-          <!-- 中排 -->
-          <rect x="95" y="95" width="10" height="18" rx="5" />
-          <!-- 下排 -->
-          <rect x="65" y="115" width="10" height="18" rx="5" />
-          <rect x="125" y="115" width="10" height="18" rx="5" />
-          <!-- 底部中心偏下 -->
-          <rect x="95" y="125" width="10" height="18" rx="5" />
+          <rect x="75" y="70" width="10" height="18" rx="5" /> <rect x="115" y="70" width="10" height="18" rx="5" />
+          <rect x="95" y="95" width="10" height="18" rx="5" /> <rect x="65" y="115" width="10" height="18" rx="5" />
+          <rect x="125" y="115" width="10" height="18" rx="5" /> <rect x="95" y="125" width="10" height="18" rx="5" />
         </g>
       </svg>
     </div>
 
-    <!-- 文案 -->
-    <h1 class="text-4xl md:text-5xl font-bold mt-8 mb-2 glow-text fade-in-up delay-1">
+    <h1 class="text-4xl md:text-5xl font-bold mt-8 mb-2 glow-text fade-in-up delay-1 cursor-pointer hover:text-white transition-colors" onclick="openBeaconModal()" title="点击验证暗号，生成专属打卡信标">
       Happy 1st Anniversary
     </h1>
-    <h2 class="text-xl md:text-2xl text-gray-400 tracking-widest mb-8 fade-in-up delay-1">
-      <span class="highlight-red">pku</span><span class="highlight-green">hollow</span>
+    <h2 class="text-xl md:text-2xl text-gray-400 tracking-widest mb-8 fade-in-up delay-1" style="z-index: 20; position: relative;">
+      <a href="https://web.pkuhollow.com" target="_blank" style="text-decoration: none; cursor: pointer;">
+        <span class="highlight-red transition-all duration-300 hover:text-red-400">pku</span><span class="highlight-green transition-all duration-300 hover:text-green-400">hollow</span>
+      </a>
     </h2>
 
     <p class="text-lg md:text-xl max-w-lg leading-relaxed fade-in-up delay-2">
       "这一年，越过有形的围墙，<br>我们在<span class="text-gray-300 font-bold">未名</span>的荒野里，<br>种下了一颗会发光的西瓜。"
     </p>
 
-    <!-- 隐藏的寄语 -->
     <div id="secret-message" class="text-sm md:text-base max-w-md text-gray-300 leading-relaxed shadow-lg">
-      致每一位流浪到这里的数字难民：<br><br>
-      外面或许有更华丽的洞天，<br>
-      有盲水印和树叶买来的热搜。<br>
-      但在这里，一切依然粗糙、野生、且自由。<br><br>
-      未名之所以为未名，是因为真实的声音不需要被定义。<br>
-      <span class="text-white font-bold">兼容并包的灵魂，永远会找到属于自己的旷野。</span><br><br>
-      <span class="text-gray-500 italic">— A Hollow Observer</span>
+      致每一位流浪到这里的数字难民：<br><br>外面或许有更华丽的洞天，<br>有盲水印和树叶买来的热搜。<br>但在这里，一切依然粗糙、野生、且自由。<br><br>未名之所以为未名，是因为真实的声音不需要被定义。<br>
+      <span class="text-white font-bold">兼容并包的灵魂，永远会找到属于自己的旷野。</span><br><br><span class="text-gray-500 italic">— A Hollow Observer</span>
     </div>
-
   </div>
 
-  <script>
-    // --- 星空与洞主彩蛋系统 ---
-    const canvas = document.getElementById('star-canvas');
-    const ctx = canvas.getContext('2d');
-    let width, height;
-    let stars = [];
-    let floatingTexts = []; // 用于存储漂浮的文字
-
-    // 洞主名单库
-    const holeOwners = [
-      "四格漫画洞主", "熊熊洞主", "牛排洞主", "每日东方洞主", "幸福洞主",
-      "猫猫洞主", "调酒洞主", "wordle洞主", "每日历史洞主", "日语洞主",
-      "未名洞观察洞主（嘿嘿正是在下）", "青研老师（吓你一跳😋）", "佛学洞主",
-      "Alice", "Bob", "Carol", "Dave", "Hollowdz（致敬！）"
-    ];
-
-    function resize() {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    }
-
-    // 星星类
-    class Star {
-      constructor() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
-        this.size = Math.random() * 2 + 0.5; 
-        this.speedY = (Math.random() * 0.3) - 0.15;
-        this.speedX = (Math.random() * 0.3) - 0.15;
-        this.opacity = Math.random();
-        this.fadeDir = Math.random() > 0.5 ? 1 : -1;
-      }
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.x < 0) this.x = width;
-        if (this.x > width) this.x = 0;
-        if (this.y < 0) this.y = height;
-        if (this.y > height) this.y = 0;
-        
-        this.opacity += 0.005 * this.fadeDir;
-        if (this.opacity >= 1) { this.opacity = 1; this.fadeDir = -1; } 
-        else if (this.opacity <= 0.1) { this.opacity = 0.1; this.fadeDir = 1; }
-      }
-      draw() {
-        ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    // 漂浮文字类 (被点击的星星变成文字)
-    class FloatingText {
-      constructor(x, y, text) {
-        this.x = x;
-        this.y = y;
-        this.text = text;
-        this.opacity = 1;
-        this.life = 120; // 存活帧数
-      }
-      update() {
-        this.y -= 0.8; // 向上飘
-        this.life--;
-        this.opacity = this.life / 120;
-      }
-      draw() {
-        ctx.fillStyle = `rgba(255, 215, 0, ${this.opacity})`; // 金色文字
-        ctx.font = "bold 16px 'Noto Serif SC', serif";
-        ctx.textAlign = "center";
-        ctx.shadowColor = "rgba(255, 255, 255, 0.5)";
-        ctx.shadowBlur = 10;
-        ctx.fillText(this.text, this.x, this.y);
-        ctx.shadowBlur = 0; // 重置阴影防止影响星星
-      }
-    }
-
-    function initStars() {
-      stars = [];
-      // 根据屏幕大小计算星星数量
-      const numStars = Math.floor((window.innerWidth * window.innerHeight) / 2500);
-      for (let i = 0; i < numStars; i++) { stars.push(new Star()); }
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, width, height);
-      
-      // 绘制星星
-      stars.forEach(star => { star.update(); star.draw(); });
-      
-      // 绘制漂浮文字
-      for (let i = floatingTexts.length - 1; i >= 0; i--) {
-        let ft = floatingTexts[i];
-        ft.update();
-        ft.draw();
-        if (ft.life <= 0) {
-          floatingTexts.splice(i, 1); // 消失后移除
-        }
-      }
-      
-      requestAnimationFrame(animate);
-    }
-
-    // --- 点击交互逻辑 ---
-    canvas.addEventListener('click', (e) => {
-      const rect = canvas.getBoundingClientRect();
-      const mouseX = e.clientX - rect.left;
-      const mouseY = e.clientY - rect.top;
-      
-      let hit = false;
-      // 遍历寻找距离鼠标最近的星星
-      for (let i = 0; i < stars.length; i++) {
-        let star = stars[i];
-        // 判定距离：允许30像素的误差，方便点击
-        const dist = Math.hypot(mouseX - star.x, mouseY - star.y);
-        if (dist < 30) {
-          // 命中！随机抽取一位洞主
-          const randomOwner = holeOwners[Math.floor(Math.random() * holeOwners.length)];
-          // 在星星的位置生成文字
-          floatingTexts.push(new FloatingText(star.x, star.y, randomOwner));
-          
-          // 将这颗星星瞬间重置到别的地方（制造被“点爆”的效果）
-          star.x = Math.random() * width;
-          star.y = Math.random() * height;
-          
-          hit = true;
-          break; // 一次点击只点爆一颗星
-        }
-      }
-
-      // 如果没点中星星，就在鼠标位置强行生成一个彩蛋，保证体验
-      if (!hit) {
-         const randomOwner = holeOwners[Math.floor(Math.random() * holeOwners.length)];
-         floatingTexts.push(new FloatingText(mouseX, mouseY, randomOwner));
-      }
-    });
-
-    window.addEventListener('resize', () => { resize(); initStars(); });
-    resize(); initStars(); animate();
-
-    // 交互逻辑：点击西瓜显示寄语
-    function revealSecret() {
-      const msg = document.getElementById('secret-message');
-      msg.classList.toggle('show');
-    }
-   
-    // --- 经纬度点击互动 ---
-    function triggerCoord() {
-      const coord = document.getElementById('pku-coord');
-      // 防止连续点击
-      if (coord.getAttribute('data-clicked') === 'true') return;
-      
-      const originalText = coord.innerHTML;
-      coord.setAttribute('data-clicked', 'true');
-      coord.innerHTML = "SIGNAL RECEIVED<br>UPLOADING MEMORIES...";
-      coord.style.color = "#7bca51"; // 变成亮绿色
-      coord.style.textShadow = "0 0 10px #7bca51";
-      
-      setTimeout(() => {
-        coord.innerHTML = originalText;
-        coord.style.color = "rgba(255, 255, 255, 0.4)";
-        coord.style.textShadow = "none";
-        coord.setAttribute('data-clicked', 'false');
-      }, 2500); // 2.5秒后恢复原状
-    }
-
-  </script>
-   
-  <style>
-    .click-ripple {
-      position: absolute;
-      border-radius: 50%;
-      border: 1.5px solid rgba(255, 255, 255, 0.6);
-      transform: translate(-50%, -50%);
-      animation: ripple-animate 0.6s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
-      pointer-events: none; /* 防止阻挡其他点击 */
-      z-index: 9999;
-    }
-    @keyframes ripple-animate {
-      0% { width: 0px; height: 0px; opacity: 1; }
-      100% { width: 80px; height: 80px; opacity: 0; }
-    }
-  </style>
-  <script>
-    document.addEventListener('mousedown', function(e) {
-      // 创建波纹元素
-      const ripple = document.createElement('div');
-      ripple.className = 'click-ripple';
-      ripple.style.left = e.clientX + 'px';
-      ripple.style.top = e.clientY + 'px';
-      document.body.appendChild(ripple);
-      // 动画结束后自动清理垃圾
-      setTimeout(() => { ripple.remove(); }, 600);
-    });
-  </script>
-
-  <script>
-    (function() {
-      const originalTitle = document.title;
-      document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-          // 离开页面时的文案
-          document.title = "🪐 未名的星光仍在闪烁...";
-        } else {
-          // 回来时的文案
-          document.title = "✨ 欢迎回洞！";
-          setTimeout(() => { document.title = originalTitle; }, 2000);
-        }
-      });
-    })();
-  </script>
-
-  <style>
-    .shooting-star {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: #fff;
-      border-radius: 50%;
-      box-shadow: 0 0 5px 1px rgba(255, 255, 255, 0.8);
-      opacity: 0;
-      z-index: 1;
-      pointer-events: none;
-      animation: shooting 1.5s ease-in-out forwards;
-    }
-    .shooting-star::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 60px; /* 尾巴长度 */
-      height: 1px;
-      background: linear-gradient(90deg, rgba(255,255,255,0.8), transparent);
-    }
-    @keyframes shooting {
-      0% { transform: translate(0, 0) rotate(-45deg); opacity: 1; }
-      100% { transform: translate(-300px, 300px) rotate(-45deg); opacity: 0; }
-    }
-  </style>
-  <script>
-    (function() {
-      function createShootingStar() {
-        const star = document.createElement('div');
-        star.className = 'shooting-star';
-        // 随机生成在屏幕右侧或上方
-        star.style.left = (Math.random() * window.innerWidth + 200) + 'px';
-        star.style.top = (Math.random() * window.innerHeight / 2 - 100) + 'px';
-        document.body.appendChild(star);
-        
-        // 动画结束后移除
-        setTimeout(() => { star.remove(); }, 1500);
-      }
-      
-      // 每隔 4 到 7 秒随机生成一颗流星
-      function scheduleNextStar() {
-        const delay = Math.random() * 3000 + 4000;
-        setTimeout(() => {
-          createShootingStar();
-          scheduleNextStar();
-        }, delay);
-      }
-      // 延迟 2 秒后开始第一颗流星
-      setTimeout(scheduleNextStar, 2000);
-    })();
-  </script>
-  
+  <div id="signal-terminal">
+    <div class="terminal-header">
+      <a id="terminal-link" href="#" target="_blank" style="color: inherit; text-decoration: none; cursor: pointer;">
+        <span id="terminal-title" class="transition-colors">▶ WAITING_FOR_SIGNAL...</span>
+      </a>
+      <span>[REC]</span>
+    </div>
+    <div class="terminal-text"><span id="typed-content"></span><span class="terminal-cursor"></span></div>
+  </div>
 
   <div class="watermark">
     By @whatsinpkuhollow
@@ -523,5 +288,339 @@
     @whatsinpkuhollow
   </a>
 
+  // 暗号验证
+  <div id="beacon-modal" class="modal-overlay">
+    <div class="modal-content text-center">
+      <h3 class="text-xl mb-3 text-green-400 font-bold tracking-widest">[ BEACON_GENERATOR ]</h3>
+      <p class="text-gray-300 mb-4 text-sm leading-relaxed">
+        请输入暗号：<span class="text-white font-bold select-all">新未名树洞生日快乐</span><br>来生成你的专属流浪者打卡信标。
+      </p>
+      
+      <input type="text" id="beacon-input" placeholder="输入暗号..." autocomplete="off" 
+             class="w-full bg-gray-900 border border-gray-600 text-white rounded px-3 py-2 mb-2 focus:outline-none focus:border-green-500 text-center font-bold tracking-widest transition-colors">
+      
+      <div id="beacon-msg" class="text-sm mb-4 h-5"></div>
+      
+      <div class="flex justify-center gap-4">
+        <button onclick="closeBeaconModal()" class="px-4 py-2 border border-gray-600 rounded text-gray-400 hover:bg-gray-800 transition text-sm">取消</button>
+        <button onclick="generateBeacon()" class="px-4 py-2 bg-green-900 border border-green-500 rounded text-green-400 hover:bg-green-800 hover:text-white transition shadow-[0_0_10px_rgba(123,202,81,0.3)] text-sm">生成并复制</button>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    // --- 1. 星空与洞主彩蛋系统 ---
+    const canvas = document.getElementById('star-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height, stars = [], floatingTexts = [];
+    const holeOwners = [
+      "四格漫画洞主", "熊熊洞主", "牛排洞主", "每日东方洞主", "幸福洞主",
+      "猫猫洞主", "调酒洞主", "wordle洞主", "每日历史洞主", "日语洞主",
+      "未名洞观察洞主（嘿嘿正是在下）", "青研老师（吓你一跳😋）", "佛学洞主",
+      "Alice", "Bob", "Carol", "Dave", "Hollowdz（致敬！）"
+    ];
+
+    function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; }
+    class Star {
+      constructor() {
+        this.x = Math.random() * width; this.y = Math.random() * height;
+        this.size = Math.random() * 2 + 0.5; this.speedY = (Math.random() * 0.3) - 0.15; this.speedX = (Math.random() * 0.3) - 0.15;
+        this.opacity = Math.random(); this.fadeDir = Math.random() > 0.5 ? 1 : -1;
+      }
+      update() {
+        this.x += this.speedX; this.y += this.speedY;
+        if (this.x < 0) this.x = width; if (this.x > width) this.x = 0;
+        if (this.y < 0) this.y = height; if (this.y > height) this.y = 0;
+        this.opacity += 0.005 * this.fadeDir;
+        if (this.opacity >= 1) { this.opacity = 1; this.fadeDir = -1; } else if (this.opacity <= 0.1) { this.opacity = 0.1; this.fadeDir = 1; }
+      }
+      draw() { ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
+    }
+    class FloatingText {
+      constructor(x, y, text) { this.x = x; this.y = y; this.text = text; this.opacity = 1; this.life = 120; }
+      update() { this.y -= 0.8; this.life--; this.opacity = this.life / 120; }
+      draw() {
+        ctx.fillStyle = `rgba(255, 215, 0, ${this.opacity})`; ctx.font = "bold 16px 'Noto Serif SC', serif"; ctx.textAlign = "center";
+        ctx.shadowColor = "rgba(255, 255, 255, 0.5)"; ctx.shadowBlur = 10; ctx.fillText(this.text, this.x, this.y); ctx.shadowBlur = 0;
+      }
+    }
+    function initStars() {
+      stars = []; const numStars = Math.floor((window.innerWidth * window.innerHeight) / 2500);
+      for (let i = 0; i < numStars; i++) stars.push(new Star());
+    }
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      stars.forEach(star => { star.update(); star.draw(); });
+      for (let i = floatingTexts.length - 1; i >= 0; i--) {
+        let ft = floatingTexts[i]; ft.update(); ft.draw();
+        if (ft.life <= 0) floatingTexts.splice(i, 1);
+      }
+      requestAnimationFrame(animate);
+    }
+    canvas.addEventListener('click', (e) => {
+      const rect = canvas.getBoundingClientRect(); const mouseX = e.clientX - rect.left; const mouseY = e.clientY - rect.top; let hit = false;
+      for (let i = 0; i < stars.length; i++) {
+        let star = stars[i]; const dist = Math.hypot(mouseX - star.x, mouseY - star.y);
+        if (dist < 30) {
+          floatingTexts.push(new FloatingText(star.x, star.y, holeOwners[Math.floor(Math.random() * holeOwners.length)]));
+          star.x = Math.random() * width; star.y = Math.random() * height; hit = true; break; 
+        }
+      }
+      if (!hit) floatingTexts.push(new FloatingText(mouseX, mouseY, holeOwners[Math.floor(Math.random() * holeOwners.length)]));
+    });
+    window.addEventListener('resize', () => { resize(); initStars(); });
+    resize(); initStars(); animate();
+
+    // --- 2. 寄语显示 ---
+    function revealSecret() { document.getElementById('secret-message').classList.toggle('show'); }
+
+    // --- 3. 水波纹交互 ---
+    document.addEventListener('mousedown', function(e) {
+      if(e.target.tagName === 'A' || e.target.closest('#signal-terminal')) return; // 点链接时不触发水波纹
+      const ripple = document.createElement('div'); ripple.className = 'click-ripple';
+      ripple.style.left = e.clientX + 'px'; ripple.style.top = e.clientY + 'px';
+      document.body.appendChild(ripple); setTimeout(() => { ripple.remove(); }, 600);
+    });
+
+    // --- 4. 标签页标题 ---
+    const originalTitle = document.title;
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) { document.title = "🪐 未名的星光仍在闪烁..."; } 
+      else { document.title = "✨ 欢迎回洞！"; setTimeout(() => { document.title = originalTitle; }, 2000); }
+    });
+
+    // --- 5. 随机流星 ---
+    function createShootingStar() {
+      const star = document.createElement('div'); star.className = 'shooting-star';
+      star.style.left = (Math.random() * window.innerWidth + 200) + 'px'; star.style.top = (Math.random() * window.innerHeight / 2 - 100) + 'px';
+      document.body.appendChild(star); setTimeout(() => { star.remove(); }, 1500);
+    }
+    function scheduleNextStar() { setTimeout(() => { createShootingStar(); scheduleNextStar(); }, Math.random() * 3000 + 4000); }
+    setTimeout(scheduleNextStar, 2000);
+
+    // --- 6. 强化版：微光电台双 BGM 循环逻辑 ---
+    const bgMusic = document.getElementById('bg-music');
+    const musicSource = document.getElementById('music-source');
+    const musicIcon = document.getElementById('music-toggle');
+    
+    // 列表里可以放任意多首，播完会自动切下一首
+    const playlist = ["bgm1.mp3", "bgm2.mp3"];
+    let currentTrackIndex = 0;
+    let isMusicPlaying = false;
+
+    // 初始化：加载第一首
+    if (musicSource) {
+      musicSource.src = playlist[currentTrackIndex];
+      bgMusic.load();
+    }
+
+    // 核心：监听当前曲目结束，自动切换到下一首
+    bgMusic.onended = function() {
+      currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+      musicSource.src = playlist[currentTrackIndex];
+      bgMusic.load();
+      bgMusic.play();
+      console.log("▶ 电台自动切换至: " + playlist[currentTrackIndex]);
+    };
+
+    function toggleMusic() {
+      if (isMusicPlaying) {
+        bgMusic.pause();
+        musicIcon.classList.remove('playing');
+        musicIcon.title = "开启微光电台";
+      } else {
+        // 现代浏览器要求必须有用户交互（点击）后才能调用 .play()
+        bgMusic.play().then(() => {
+          musicIcon.classList.add('playing');
+          musicIcon.title = "关闭微光电台";
+        }).catch(err => {
+          console.error("播放失败，请确保 bgm1.mp3 存在:", err);
+        });
+      }
+      isMusicPlaying = !isMusicPlaying;
+    }
+
+    // --- 7. 记忆数据库与终端打字机 ---
+    let terminalBusy = false;
+    let currentSetIndex = -1;
+    const memoryBanks = [
+      { id: "#5071 // 生贺大本营", url: "https://web.pkuhollow.com/##5071", messages: [ "🍉新未名树洞的一周年生日马上就要到啦！╰(°▽°)╯\n这里是树洞观察dz，我为树洞做了一个小小的生贺礼物，到时候会发在这里！🎂\n你喜欢新未名树洞吗？\n你有哪些印象深刻的树洞回忆？\n你对新未名树洞的运营有什么建议？\n你有什么话想留给新未名树洞，或者留给洞友们？\n欢迎大家发言，dz会把有趣的内容撒在生贺蛋糕上当调料~", "[Alice]: 新未名好像还没经历过qy洞大规模封杀转移讨论阵地的大话题大事件，当然2022年末的盛况是很难复刻的了", "[Bob]: 新未名这个阶段最重要的是管理员要出现", "[Carol]: 好吃😋", "[Dave]: 建议会被管理员考虑吗？感觉未名洞现在缺少普通洞友和管理员的联系渠道", "[Emilia]: 我感觉有个基本功能的现状就很好◑.◑" ] },
+      { id: "#1000 // 老洞友的追忆", url: "https://web.pkuhollow.com/##1000", messages: [ "[洞主]: 老洞友忘了自我介绍了（才不是为了抢1000洞号(‾^‾)ง）\n先对暗号：tooler _____。", "[洞主]: 如#187所记载，这里活跃过每日东方/柚子社洞主、每日历史/佛学洞主、每日dordle/wordle洞主、牛排洞主、熊熊洞主、调酒洞主，以及各种记不清的洞主，真怀念啊，可惜随着旧洞的突然关停一并消失了...\n应该是23年四月或五月，我本来和洞友说好等我写完论文就拍一些校内核酸亭的照片，结果照片拍出来了，也没地方发了，过几天等我整理出来发一下。", "[洞主]: 洞主今年7月在隔壁一个毕业成就洞内看到有人提到新未名树洞，结果输pkuhollow.com也没找到正确的打开方式，后来打开之前存的旧洞图标，发现前面多了个web，才成功注册进来。今天刷完了近一千个洞，感慨日活不高，内容质量仍需向旧洞后期努力，希望大家一起努力宣传和建设新未名树洞，愿这篇净土能持续存活下去！", "[Emilia]: 现在还能找到这的老洞友都是很有心的人了。", "[Francis]: 泪目，dz记得好清楚，我的大记忆也恢复了（", "[Grace]: 卧槽，记忆复苏", "[Margaret]: 老洞友+1" ] },
+      { id: "#4402 // 人口调查", url: "https://web.pkuhollow.com/##4402", messages: [ "未名洞人口调查\n你是什么时候加入未名洞的？\n【投票】：2026年加入---4\n新未名成立后（2025年3月）---18\n我早就是老未名洞友了---46", "[Alice]: 这张照的还蛮好看", "[Bob]: 鸿蒙时期洞友点错了点成了第一个", "[Emilia]: Re Bob: 除了鸿蒙树洞是不是还有一个叫无名树洞来着", "[Francis]: 先接触的未名洞再接触的以前的P大树洞，当时我还寻思这网站人怎么这么少" ] },
+      { id: "#3629 // 薪火相传的桥梁", url: "https://web.pkuhollow.com/##3629", messages: [ "[洞主]: 因为总是被ban所以找来这里，发帖之前也努力认真阅读了社区规范，不知道想表达什么但是有点小激动嘻嘻", "[Alice]: 未名树洞的大门永远对每一位PKUer敞开，无论是已毕业的校友，还是在校内奋斗的每一位同学。 树洞中的疑惑、同学之间的情感、宝贵的人生经验都不因毕业而消逝，我们希望未名树洞成为大家共同的记忆，和PKUer之间薪火相传的桥梁。未名树洞由热爱树洞的学生创建，但同时属于未名的每一位用户，由全体用户共同提出树洞规范的建议和发展的方向，没有口袋规则，没有无端的封禁。即便由非官方管理，未名树洞致力于守护树洞的大门，以严密的技术手段保护每一名用户的个人信息与隐私。", "[洞主]: 前几天在树洞又被ban了，于是和在学校待了九年的老学长聊天要到了链接！顺便，老学长因为邮箱后缀没有stu好像上不了新树洞lol", "[Alice]: pku.edu.cn也可以的喔，欢迎老学长" ] },
+      { id: "#3383 // 复活吧我的爱人", url: "https://web.pkuhollow.com/##3383", messages: [ "[洞主]: 妈呀，上班闲的没事看收藏夹，点开未名树洞居然没报错😭复活吧我的爱人", "[Alice]: 冥冥之中自有缘分。欢迎回来洞友😭", "[洞主]: 我们终将在没有黑暗的地方相遇😭", "[Bob]: 本来是想去BBS的，输入了未名，收藏夹中的未名洞跳了出来，点了一下，居然进入了登陆界面，就又重新注册回来了😂", "[Emilia]: 把未名洞告诉更多人吧" ] },
+      { id: "#1918 // 毕业老狗泪目", url: "https://web.pkuhollow.com/##1918", messages: [ "[洞主]: 有这个洞让我觉得和贵校的联系还没有断 毕业老狗泪目", "[Dave]: 我也是！！花了一晚上，大费周章又爬回了洞里", "[Francis]: 毕业后一身死感，上树洞竟然不适应了，哎", "[Grace]: +1 在大洋彼岸想念燕园" ] },
+      { id: "ARCHIVE // 贴在qy洞的寻人启事", url: null, messages: [ "[洞主 #6641682]: 想你们了，每日东方/柚子社洞主、每日历史/佛学洞主、牛排洞主、熊熊洞主、调酒洞主，以及各种记不清的洞主😢", "[Alice]: 我来调酒吧", "[洞主] 突然想起来，还有个每日dordle/wordle洞主", "[Dave]: 最近现实世界太忙导致总没空发 😭 我反省", "[洞主] 没事没事，今天中午刷到啦～期待秘封组下次出现哦😚", "[洞主 #2623323]: 有人知道聊天洞主，嚎叫洞主，熊熊洞主，漫画洞主，每日东方/柚子社等等小可爱吗www", "[Bob] 熊熊好可爱捏", "[Carol] 知道，每日柚子每日东方都是一位21届学长在做", "[洞主 ##2948536]: #256 寻找漫画洞主", "[Alice] 我的漫画洞主🥺🥺", "[Francis]: 漫画洞主😭 调酒洞主😭 熊熊洞主😭" ] },
+      { id: "ARCHIVE // 创世宣言", url: null, messages: [ "【2021年12月18日 未名树洞简介】\n漫长的线上学期终于告一段落，我们终于又回到了熟悉的校园中，情愿或不情愿地把自己绑在了前行的车轮上。在日复一日繁忙的校园生活中，为了让自己尽快愈合，有时我们会在自己的身上剥离掉那些细微的感情。但真挚的感情是人类最宝贵的财富，为了不再感受而不去感受是多么的浪费。伴随着这样的需求，树洞便应运而生。", "我们是未名树洞，我们希望还原树洞本该有的模样，让树洞进一步枝繁叶茂。", "欢迎来到这里。我们所做的一切，只是基于对于树洞的热爱，没有任何功利的目的，我们也承诺永不商业化运营。如果信任我们，希望对新兴的事物进行尝试，那么欢迎注册未名树洞，来到这一方新的天地。", "假如你在这里感到快乐，请把未名树洞推荐给身边的人。毕竟树洞的本质是人与人之间的沟通，只有来来往往的人多了，树洞才会显出更多的生气，我们所做的一切才会更有意义。\n再次感谢你对我们的信任，希望你在未名树洞玩得开心。" ] },
+      { id: "SYSTEM INFO // 联络方式", url: null, messages: [ "【新未名树洞联系方式】\n邮箱: pkuhollow2.0@protonmail.com\nMatrix: https://matrix.to/#/!EQatKFuYdTTQPliatE:matrix.org", "[ADMIN]: 如果你觉得新未名树洞不好，你就去建设它。" ] }
+    ];
+
+    function triggerCoord() {
+      if (terminalBusy) return;
+      const coord = document.getElementById('pku-coord');
+      const originalText = coord.innerHTML;
+      
+      terminalBusy = true; 
+      coord.innerHTML = "SIGNAL RECEIVED<br>INTERCEPTING_RECORDS...";
+      coord.style.color = "#7bca51"; coord.style.textShadow = "0 0 10px #7bca51";
+      
+      setTimeout(() => {
+        document.getElementById('signal-terminal').classList.add('show');
+        loadNextSignal();
+      }, 800);
+
+      setTimeout(() => {
+        coord.innerHTML = originalText;
+        coord.style.color = "rgba(255, 255, 255, 0.4)"; coord.style.textShadow = "none";
+      }, 2500); 
+    }
+
+    function loadNextSignal() {
+      // 每次点击，序号 +1；如果播到了最后一条，就自动回到第一条循环
+      currentSetIndex = (currentSetIndex + 1) % memoryBanks.length;
+      const set = memoryBanks[currentSetIndex];
+
+      const linkEl = document.getElementById('terminal-link'); 
+      const titleEl = document.getElementById('terminal-title');
+      
+      titleEl.textContent = `▶ ${set.id}`;
+      
+      if (set.url) {
+        linkEl.href = set.url; 
+        linkEl.style.pointerEvents = "auto"; 
+        titleEl.classList.add("hover:text-white");
+      } else {
+        linkEl.removeAttribute('href'); 
+        linkEl.style.pointerEvents = "none"; 
+        titleEl.classList.remove("hover:text-white");
+      }
+      
+      playSignalSet(set.messages);
+    }
+
+    function playSignalSet(messages) {
+      const textElement = document.getElementById('typed-content');
+      let msgIndex = 0, charIndex = 0, mode = 'TYPING';
+
+      function loop() {
+        if (mode === 'TYPING') {
+          const currentMsg = messages[msgIndex];
+          if (charIndex < currentMsg.length) {
+            textElement.textContent += currentMsg.charAt(charIndex); charIndex++;
+            // 根据长短自动分配打字速度
+            let speed = currentMsg.length > 120 ? 8 : (currentMsg.length > 50 ? 20 : 40);
+            setTimeout(loop, speed + Math.random() * 15);
+          } else {
+            // 根据长短分配展示停留时间
+            let pauseTime = currentMsg.length > 100 ? 5500 : 3500;
+            setTimeout(() => { mode = 'DELETING'; loop(); }, pauseTime);
+          }
+        } else if (mode === 'DELETING') {
+          if (charIndex > 0) {
+            let delCount = messages[msgIndex].length > 100 ? 6 : 2;
+            charIndex = Math.max(0, charIndex - delCount);
+            textElement.textContent = messages[msgIndex].substring(0, charIndex);
+            setTimeout(loop, 10);
+          } else {
+            msgIndex++;
+            if (msgIndex < messages.length) { mode = 'TYPING'; setTimeout(loop, 500); } 
+            else { mode = 'FINISHED'; loop(); }
+          }
+        } else if (mode === 'FINISHED') {
+          const promptText = "\n[SYSTEM]: 当前信号频段已终止。\n[SYSTEM]: 请再次点击左下角神秘坐标，截获下一条历史记录~";
+          let pIndex = 0; textElement.textContent = "";
+          function typePrompt() {
+            if (pIndex < promptText.length) { textElement.textContent += promptText.charAt(pIndex); pIndex++; setTimeout(typePrompt, 30); } 
+            else { terminalBusy = false; }
+          }
+          typePrompt();
+        }
+      }
+      textElement.textContent = ""; loop();
+    }
+
+
+    // --- 观察者档案交互逻辑 ---
+    function openObserverModal() {
+      document.getElementById('observer-modal').classList.add('active');
+      document.getElementById('modal-step-1').classList.remove('hidden');
+      document.getElementById('modal-step-2').classList.add('hidden');
+    }
+    function closeObserverModal() {
+      document.getElementById('observer-modal').classList.remove('active');
+    }
+    function showObserverLinks() {
+      document.getElementById('modal-step-1').classList.add('hidden');
+      document.getElementById('modal-step-2').classList.remove('hidden');
+    }
+
+    // --- 流浪者信标逻辑 ---
+    function openBeaconModal() {
+      document.getElementById('beacon-modal').classList.add('active');
+      document.getElementById('beacon-input').value = ''; // 打开时清空输入
+      const msgBox = document.getElementById('beacon-msg');
+      msgBox.textContent = ''; // 清空提示
+      msgBox.className = 'text-sm mb-4 h-5';
+      // 延迟一下让输入框自动获取焦点
+      setTimeout(() => document.getElementById('beacon-input').focus(), 100);
+    }
+
+    function closeBeaconModal() {
+      document.getElementById('beacon-modal').classList.remove('active');
+    }
+
+    function generateBeacon() {
+      const inputVal = document.getElementById('beacon-input').value.trim();
+      const msgBox = document.getElementById('beacon-msg');
+      
+      if (inputVal === "新未名树洞生日快乐") {
+        // 1. 获取当前精确时间
+        const now = new Date();
+        const timeStr = now.getFullYear() + '-' + 
+                        String(now.getMonth() + 1).padStart(2, '0') + '-' + 
+                        String(now.getDate()).padStart(2, '0') + ' ' + 
+                        String(now.getHours()).padStart(2, '0') + ':' + 
+                        String(now.getMinutes()).padStart(2, '0') + ':' + 
+                        String(now.getSeconds()).padStart(2, '0');
+        
+        // 2. 个性化元素：生成随机的专属“流浪者编号” (0000 - 9999)
+        const wandererId = String(Math.floor(Math.random() * 10000)).padStart(4, '0');
+        
+        // 3. 10款多远盲盒信标文案库
+        const beaconTemplates = [
+          `[SIGNAL_TRANSMITTED] 🌠 编号 #${wandererId} | 打卡时间 ${timeStr}\nHello，Hollow！我在流星里啃了一口发光的西瓜。`,
+          `[ECHO_RECEIVED] ✨ 编号 #${wandererId} | 打卡时间 ${timeStr}\n未名的风吹呀吹，树叶沙沙响。这是我留下的坐标，生日快乐！`,
+          `[NODE_ACTIVATED] 📡 编号 #${wandererId} | 打卡时间 ${timeStr}\n身份验证通过，已接入一周年网络。愿未名树洞越来越好！`,
+          `[MEMORY_SAVED] 🍉 编号 #${wandererId} | 打卡时间 ${timeStr}\n吃瓜群众打卡！愿这片旷野永远兼容并包。`,
+          `[OBSERVER_LOG] 👁️ 编号 #${wandererId} | 打卡时间 ${timeStr}\n洞友你好！愿我们在没有黑暗的地方相遇。`,
+          `[WILDERNESS_EXPLORER] 🏕️ 编号 #${wandererId} | 打卡时间 ${timeStr}\n在数字荒野上点燃篝火。新未名，一周年快乐！`,
+          `[TIME_CAPSULE] ⏳ 编号 #${wandererId} | 打卡时间 ${timeStr}\n打包一段记忆，存入未名的服务器。原来大家都在这里！`,
+          `[NOMADIC_SOUL] 🧭 编号 #${wandererId} | 打卡时间 ${timeStr}\n坐标已同步，今天我们在树洞团聚！`,
+          `[SILENT_WATCHER] 🦉 编号 #${wandererId} | 打卡时间 ${timeStr}\n星光坠落，打字机停歇。我在这里见证了新未名树洞的一岁生日。`
+        ];
+        
+        // 随机抽取一条文案
+        const randomBeacon = beaconTemplates[Math.floor(Math.random() * beaconTemplates.length)];
+        
+        // 4. 写入用户设备的剪贴板
+        navigator.clipboard.writeText(randomBeacon).then(() => {
+          msgBox.innerHTML = '✅ 信标已复制！快去 <a href="https://web.pkuhollow.com/##5071" target="_blank" class="underline text-white hover:text-green-300 transition-colors">#5071</a> 盖楼吧！';
+          msgBox.className = "text-sm mb-4 h-5 text-green-400 font-bold";
+        }).catch(err => {
+          msgBox.textContent = "❌ 浏览器阻止了复制，请手动输入...";
+          msgBox.className = "text-sm mb-4 h-5 text-red-400";
+        });
+      } else {
+        // 暗号错误提示
+        msgBox.textContent = "⚠️ 暗号不对哦，再确认一下~";
+        msgBox.className = "text-sm mb-4 h-5 text-yellow-400";
+        const inputBox = document.getElementById('beacon-input');
+        inputBox.classList.add('border-red-500');
+        setTimeout(() => inputBox.classList.remove('border-red-500'), 1000);
+      }
+    }
+
+  </script>
 </body>
 </html>
